@@ -1,4 +1,4 @@
-package model;
+package com.kennguch.loginsystem.model;
 
 import lombok.Getter;
 import lombok.Setter;
