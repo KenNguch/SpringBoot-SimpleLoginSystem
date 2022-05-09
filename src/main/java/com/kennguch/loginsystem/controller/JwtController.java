@@ -15,10 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController("/api")
 public class JwtController {
-
     @Autowired
     private AuthenticationManager authenticationManager;
-
     @Autowired
     private JwtUtil jwtUtil;
     @Autowired
@@ -26,14 +24,12 @@ public class JwtController {
 
     @PostMapping("/generateToken")
     public ResponseEntity<JwtResponse> generateToken(@RequestBody JwtRequest jwtRequest) {
-//Autorize user
+        //Authorize User
         var authUSer = new UsernamePasswordAuthenticationToken(jwtRequest.getUsername(), jwtRequest.getPassword());
         authenticationManager.authenticate(authUSer);
         var userDetails = customUserDetailService.loadUserByUsername(jwtRequest.getUsername());
         var token = jwtUtil.generateToken(userDetails);
         var jwtResponse = new JwtResponse(token);
-        return new ResponseEntity<JwtResponse>(jwtResponse, HttpStatus.OK);
+        return new ResponseEntity<>(jwtResponse, HttpStatus.OK);
     }
-
-
 }
